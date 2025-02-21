@@ -3,7 +3,7 @@ import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity"
 import { type AzureClientOptions, AzureOpenAI } from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { modelInstrcutionsAndContext } from "./model-instructions-and-context";
-import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./response.schema";
+import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./schema";
 import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
