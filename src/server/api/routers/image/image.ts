@@ -37,6 +37,8 @@ async function generateImageFromPrompt(
   prompt: string,
   size: NonNullable<ImageGenerateParams["size"]> = "1024x1024"
 ) {
+  console.log(`Starting image generation with prompt: "${prompt}"...`);
+
   const client = new AzureOpenAI({
     azureADTokenProvider,
     deployment: env.AZURE_OPENAI_TEXT_TO_IMAGE_DEPLOYMENT,
@@ -59,6 +61,8 @@ async function generateImageFromPrompt(
 }
 
 async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azureADTokenProvider"]) {
+  console.log("Generating image prompt...");
+
   const client = new AzureOpenAI({
     azureADTokenProvider,
     deployment: env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
