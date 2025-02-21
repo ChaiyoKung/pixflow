@@ -5,7 +5,7 @@ import { zodResponseFormat } from "openai/helpers/zod";
 import { modelInstrcutionsAndContext } from "./model-instructions-and-context";
 import { responseSchema } from "./response.schema";
 import { TRPCError } from "@trpc/server";
-import { env } from "../../../../env";
+import { env } from "~/env";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.mutation(async () => {
