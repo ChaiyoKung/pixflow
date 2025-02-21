@@ -7,26 +7,36 @@ import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./sc
 import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
+import { ImageOrientation } from "~/types";
 
 export const imageRouter = createTRPCRouter({
-  gen: publicProcedure.mutation(async () => {
+  gen: publicProcedure.mutation(async ({ ctx }) => {
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
     const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
 
     const { prompt, keywords } = await generateImagePrompt(azureADTokenProvider);
     const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt);
+    const orientation = getImageOrientation(width, height);
 
-    const data = {
-      prompt,
-      keywords,
-      url,
-      width,
-      height,
-    };
-
-    return { message: "success", data };
+    return ctx.db.image.create({
+      data: {
+        prompt,
+        keywords,
+        url,
+        downloadUrl: url,
+        width,
+        height,
+        orientation,
+      },
+    });
   }),
 });
+
+function getImageOrientation(width: number, height: number): ImageOrientation {
+  if (width > height) return "horizontal";
+  if (height > width) return "vertical";
+  return "square";
+}
 
 async function generateImageFromPrompt(
   azureADTokenProvider: AzureClientOptions["azureADTokenProvider"],

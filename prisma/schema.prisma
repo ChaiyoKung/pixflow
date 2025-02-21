@@ -18,3 +18,19 @@ model Post {
 
     @@index([name])
 }
+
+model Image {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    prompt      String
+    keywords    String[]
+    url         String
+    downloadUrl String
+    width       Int
+    height      Int
+    orientation String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([keywords])
+    @@index([orientation])
+}
