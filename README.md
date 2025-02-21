@@ -1,5 +1,7 @@
 # PixFlow
 
+An AI-powered application that automatically generates images on a schedule.
+
 ## Preparation
 
 Ensure you have MongoDB set up with a replica set. You can use [MongoDB Atlas](https://www.mongodb.com/atlas) to easily configure this.
