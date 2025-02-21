@@ -8,6 +8,9 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
+    AZURE_OPENAI_ENDPOINT: z.string().url(),
+    AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT: z.string(),
+    AZURE_OPENAI_CHAT_COMPLETION_VERSION: z.string(),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   },
 
@@ -26,6 +29,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    AZURE_OPENAI_ENDPOINT: process.env.AZURE_OPENAI_ENDPOINT,
+    AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT: process.env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
+    AZURE_OPENAI_CHAT_COMPLETION_VERSION: process.env.AZURE_OPENAI_CHAT_COMPLETION_VERSION,
     NODE_ENV: process.env.NODE_ENV,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
