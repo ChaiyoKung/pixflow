@@ -7,7 +7,7 @@ import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./sc
 import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
-import { ImageOrientation } from "~/types";
+import { getImageOrientation } from "~/utils/get-image-orientation";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.mutation(async ({ ctx }) => {
@@ -31,12 +31,6 @@ export const imageRouter = createTRPCRouter({
     });
   }),
 });
-
-function getImageOrientation(width: number, height: number): ImageOrientation {
-  if (width > height) return "horizontal";
-  if (height > width) return "vertical";
-  return "square";
-}
 
 async function generateImageFromPrompt(
   azureADTokenProvider: AzureClientOptions["azureADTokenProvider"],
