@@ -1,22 +1,58 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity";
-import { AzureOpenAI } from "openai";
+import { type AzureClientOptions, AzureOpenAI } from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { modelInstrcutionsAndContext } from "./model-instructions-and-context";
-import { responseSchema } from "./response.schema";
+import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./response.schema";
 import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
+import { type ImageGenerateParams } from "openai/resources/images.mjs";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.mutation(async () => {
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
     const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
 
-    const result = await generateImagePrompt(azureADTokenProvider);
+    const { prompt, keywords } = await generateImagePrompt(azureADTokenProvider);
+    const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt);
 
-    return { message: "success", data: result };
+    const data = {
+      prompt,
+      keywords,
+      url,
+      width,
+      height,
+    };
+
+    return { message: "success", data };
   }),
 });
+
+async function generateImageFromPrompt(
+  azureADTokenProvider: AzureClientOptions["azureADTokenProvider"],
+  prompt: string,
+  size: NonNullable<ImageGenerateParams["size"]> = "1024x1024"
+) {
+  const client = new AzureOpenAI({
+    azureADTokenProvider,
+    deployment: env.AZURE_OPENAI_TEXT_TO_IMAGE_DEPLOYMENT,
+    apiVersion: env.AZURE_OPENAI_TEXT_TO_IMAGE_VERSION,
+  });
+
+  /**
+   * The number of images to generate.
+   * Currently, only 1 image is supported.
+   */
+  const n: ImageGenerateParams["n"] = 1;
+  const response = await client.images.generate({ prompt, model: "dall-e-3", n, size });
+  if (response.data.length === 0) {
+    throw new TRPCError({ code: "UNPROCESSABLE_CONTENT", message: "No content in response" });
+  }
+
+  const { url } = textToImageResponseSchema.parse(response.data[0]);
+  const [width, height] = sizeTupleSchema.parse(size.split("x").map(Number));
+  return { url, width, height };
+}
 
 async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azureADTokenProvider"]) {
   const client = new AzureOpenAI({
