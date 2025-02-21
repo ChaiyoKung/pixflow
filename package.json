@@ -16,7 +16,8 @@
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier \"src/**/*.{css,js,jsx,ts,tsx}\" --write"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
@@ -42,6 +43,7 @@
     "@typescript-eslint/parser": "^8.1.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.0.1",
+    "prettier": "^3.5.1",
     "prisma": "^5.14.0",
     "typescript": "^5.5.3"
   },
