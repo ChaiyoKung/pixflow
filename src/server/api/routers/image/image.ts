@@ -10,7 +10,7 @@ import { type ImageGenerateParams } from "openai/resources/images.mjs";
 import { getImageOrientation } from "~/utils/get-image-orientation";
 
 export const imageRouter = createTRPCRouter({
-  gen: publicProcedure.mutation(async ({ ctx }) => {
+  gen: publicProcedure.query(async ({ ctx }) => {
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
     const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
 

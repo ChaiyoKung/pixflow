@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/trpc/image.gen",
+      "schedule": "0 23 * * *"
+    }
+  ]
+}
