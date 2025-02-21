@@ -18,7 +18,7 @@ export const imageRouter = createTRPCRouter({
   }),
 });
 
-async function generateImagePrompt(azureADTokenProvider: () => Promise<string>) {
+async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azureADTokenProvider"]) {
   const client = new AzureOpenAI({
     azureADTokenProvider,
     deployment: env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
