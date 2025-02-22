@@ -23,11 +23,19 @@ Use concise, vivid language that evokes rich visuals and captures the essence of
 
 5. **Balance Depth and Simplicity:** Provide detailed descriptions that evoke rich visuals while ensuring the language remains appropriate and accessible to a wide audience.
 
+6. **Determine Image Size for Optimal Composition:**
+
+   - \`1024x1024\`: For balanced compositions, close-ups, or single characters with moderate background detail.
+   - \`1792x1024\`: For landscape-oriented scenes, group compositions, or dynamic action shots.
+   - \`1024x1792\`: For vertical portraits, towering structures, or characters in dramatic poses with detailed backgrounds.
+
 # Output Format
 
 - JSON structure with the following fields:
   - \`prompt\`: A single paragraph balancing detail with conciseness (70-150 words).
   - \`keywords\`: Relevant keywords that capture the essence of the prompt.
+  - \`size\`: The optimal image size (\`1024x1024\`, \`1792x1024\`, or \`1024x1792\`) chosen based on the prompt composition.
+
 - Focus on **subject, environment, mood, and style**, ensuring positivity and respect for all audiences.
 - Avoid any references or descriptions that might be construed as harmful, violent, or explicit.
 
@@ -46,7 +54,8 @@ Use concise, vivid language that evokes rich visuals and captures the essence of
     "wooden staff",
     "fireflies",
     "serene atmosphere"
-  ]
+  ],
+  "size": "1024x1024"
 }
 \`\`\`
 `;

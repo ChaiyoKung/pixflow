@@ -3,7 +3,7 @@ import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity"
 import { type AzureClientOptions, AzureOpenAI } from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { modelInstrcutionsAndContext } from "./model-instructions-and-context";
-import { responseSchema, sizeTupleSchema, textToImageResponseSchema } from "./schema";
+import { chatCompletionSchema, sizeTupleSchema, textToImageResponseSchema } from "./schema";
 import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
@@ -14,8 +14,8 @@ export const imageRouter = createTRPCRouter({
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
     const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
 
-    const { prompt, keywords } = await generateImagePrompt(azureADTokenProvider);
-    const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt);
+    const { prompt, keywords, size } = await generateImagePrompt(azureADTokenProvider);
+    const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt, size);
     const orientation = getImageOrientation(width, height);
 
     return ctx.db.image.create({
@@ -78,7 +78,7 @@ async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azu
     ],
 
     // https://platform.openai.com/docs/guides/structured-outputs
-    response_format: zodResponseFormat(responseSchema, "responseSchema"),
+    response_format: zodResponseFormat(chatCompletionSchema, "chatCompletionSchema"),
   });
 
   if (!response.choices[0]?.message.content) {
@@ -86,6 +86,6 @@ async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azu
   }
 
   const resultJson = JSON.parse(response.choices[0].message.content) as unknown;
-  const result = responseSchema.parse(resultJson);
+  const result = chatCompletionSchema.parse(resultJson);
   return result;
 }
