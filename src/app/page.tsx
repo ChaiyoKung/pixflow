@@ -1,42 +1,51 @@
-import Link from "next/link";
-
-import { LatestPost } from "~/app/_components/post";
+import { AspectRatio, Container, Flex, Image, Indicator, SimpleGrid, Text, Title } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
-import styles from "./index.module.css";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
+  const { images } = await api.image.list({ page: 1, pageSize: 100 });
 
   return (
     <HydrateClient>
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>
-            Create <span className={styles.pinkSpan}>T3</span> App
-          </h1>
-          <div className={styles.cardRow}>
-            <Link className={styles.card} href="https://create.t3.gg/en/usage/first-steps" target="_blank">
-              <h3 className={styles.cardTitle}>First Steps →</h3>
-              <div className={styles.cardText}>
-                Just the basics - Everything you need to know to set up your database and authentication.
-              </div>
-            </Link>
-            <Link className={styles.card} href="https://create.t3.gg/en/introduction" target="_blank">
-              <h3 className={styles.cardTitle}>Documentation →</h3>
-              <div className={styles.cardText}>
-                Learn more about Create T3 App, the libraries it uses, and how to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className={styles.showcaseContainer}>
-            <p className={styles.showcaseText}>{hello ? hello.greeting : "Loading tRPC query..."}</p>
-          </div>
+      <Flex
+        component="header"
+        justify="center"
+        align="center"
+        p="xs"
+        pos="sticky"
+        top={0}
+        styles={{ root: { backdropFilter: "blur(5rem)", zIndex: 9999 } }}
+      >
+        <Title order={1}>PixFlow</Title>
+      </Flex>
 
-          <LatestPost />
-        </div>
-      </main>
+      <Container component="main">
+        <SimpleGrid cols={3} spacing="0.5rem">
+          {images.map((image, index) =>
+            index === 0 ? (
+              <Indicator
+                key={image.id}
+                inline
+                label="New"
+                color="red"
+                size="1rem"
+                styles={{ indicator: { transform: "translate(-0.25rem, 0.25rem)" } }}
+              >
+                <AspectRatio>
+                  <Image src={image.url} alt={image.prompt} radius="0.5rem" bg="gray" />
+                </AspectRatio>
+              </Indicator>
+            ) : (
+              <AspectRatio key={image.id}>
+                <Image src={image.url} alt={image.prompt} radius="0.5rem" bg="gray" />
+              </AspectRatio>
+            )
+          )}
+        </SimpleGrid>
+      </Container>
+
+      <Flex component="footer" justify="center" align="center" p="xs">
+        <Text>&copy; 2025 ChaiyoKung</Text>
+      </Flex>
     </HydrateClient>
   );
 }

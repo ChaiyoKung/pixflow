@@ -8,6 +8,7 @@ import { TRPCError } from "@trpc/server";
 import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
 import { getImageOrientation } from "~/utils/get-image-orientation";
+import { z } from "zod";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.query(async ({ ctx }) => {
@@ -30,6 +31,34 @@ export const imageRouter = createTRPCRouter({
       },
     });
   }),
+
+  list: publicProcedure
+    .input(
+      z.object({
+        page: z.number().min(1).default(1),
+        pageSize: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { page, pageSize } = input;
+
+      const images = await ctx.db.image.findMany({
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      });
+
+      const total = await ctx.db.image.count();
+      const totalPages = Math.ceil(total / pageSize);
+
+      return {
+        images,
+        total,
+        page,
+        pageSize,
+        totalPages,
+      };
+    }),
 });
 
 async function generateImageFromPrompt(
