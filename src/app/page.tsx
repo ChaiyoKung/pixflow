@@ -31,12 +31,12 @@ export default async function Home() {
                 styles={{ indicator: { transform: "translate(-0.25rem, 0.25rem)" } }}
               >
                 <AspectRatio>
-                  <Image src={image.url} alt={image.prompt} radius="0.5rem" bg="gray" />
+                  <Image src={image.downloadUrl} alt={image.prompt} radius="0.5rem" bg="gray" />
                 </AspectRatio>
               </Indicator>
             ) : (
               <AspectRatio key={image.id}>
-                <Image src={image.url} alt={image.prompt} radius="0.5rem" bg="gray" />
+                <Image src={image.downloadUrl} alt={image.prompt} radius="0.5rem" bg="gray" />
               </AspectRatio>
             )
           )}
