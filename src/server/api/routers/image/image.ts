@@ -9,22 +9,31 @@ import { env } from "~/env";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
 import { getImageOrientation } from "~/utils/get-image-orientation";
 import { z } from "zod";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { generateFileNameFromUrl } from "~/utils/generate-file-name-from-url";
+import { fetchImageArrayBuffer } from "~/utils/fetch-image-array-buffer";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.query(async ({ ctx }) => {
+    const defaultAzureCredential = new DefaultAzureCredential();
+
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
-    const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
+    const azureADTokenProvider = getBearerTokenProvider(defaultAzureCredential, scope);
 
     const { prompt, keywords, size } = await generateImagePrompt(azureADTokenProvider);
     const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt, size);
     const orientation = getImageOrientation(width, height);
+
+    const imageArrayBuffer = await fetchImageArrayBuffer(url);
+    const fileName = generateFileNameFromUrl(url);
+    const downloadUrl = await uploadImageToBlobStorage(defaultAzureCredential, fileName, imageArrayBuffer);
 
     return ctx.db.image.create({
       data: {
         prompt,
         keywords,
         url,
-        downloadUrl: url,
+        downloadUrl,
         width,
         height,
         orientation,
@@ -60,6 +69,32 @@ export const imageRouter = createTRPCRouter({
       };
     }),
 });
+
+async function uploadImageToBlobStorage(
+  defaultAzureCredential: DefaultAzureCredential,
+  blobName: string,
+  data: Buffer | Blob | ArrayBuffer | ArrayBufferView
+) {
+  const azureBlobStorageUri = `https://${env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net`;
+  const blobServiceClient = new BlobServiceClient(azureBlobStorageUri, defaultAzureCredential);
+
+  const containerName = env.AZURE_STORAGE_ACCOUNT_IMAGES_CONTAINER_NAME;
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+
+  const isContainerExist = await containerClient.exists();
+  if (!isContainerExist) {
+    console.log(`Container "${containerName}" does not exist. Creating a new container...`);
+    await containerClient.create({ access: "blob" });
+  }
+
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+  console.log("Uploading image to Azure Blob Storage...");
+  await blockBlobClient.uploadData(data);
+
+  const downloadUrl = blockBlobClient.url;
+  return downloadUrl;
+}
 
 async function generateImageFromPrompt(
   azureADTokenProvider: AzureClientOptions["azureADTokenProvider"],

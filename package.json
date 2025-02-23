@@ -17,11 +17,13 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "format": "prettier \"src/**/*.{css,js,jsx,ts,tsx}\" --write"
+    "format": "prettier \"src/**/*.{css,js,jsx,ts,tsx}\" --write",
+    "test": "vitest"
   },
   "dependencies": {
     "@azure/identity": "^4.7.0",
     "@azure/openai": "^2.0.0",
+    "@azure/storage-blob": "^12.26.0",
     "@mantine/core": "^7.17.0",
     "@mantine/hooks": "^7.17.0",
     "@prisma/client": "^5.14.0",
@@ -53,7 +55,8 @@
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.5.1",
     "prisma": "^5.14.0",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vitest": "^3.0.6"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
