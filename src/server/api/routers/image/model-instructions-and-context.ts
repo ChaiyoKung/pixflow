@@ -33,7 +33,7 @@ Use concise, vivid language that evokes rich visuals and captures the essence of
 
 - JSON structure with the following fields:
   - \`prompt\`: A single paragraph balancing detail with conciseness (70-150 words).
-  - \`keywords\`: Relevant keywords that capture the essence of the prompt.
+  - \`keywords\`: Relevant keywords that capture the essence of the prompt (maximum 10 keywords).
   - \`size\`: The optimal image size (\`1024x1024\`, \`1792x1024\`, or \`1024x1792\`) chosen based on the prompt composition.
 
 - Focus on **subject, environment, mood, and style**, ensuring positivity and respect for all audiences.
