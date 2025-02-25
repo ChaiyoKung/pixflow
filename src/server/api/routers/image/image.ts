@@ -9,6 +9,7 @@ import { generateImageFromPrompt } from "./generate-image-from-prompt";
 import { uploadImageToBlobStorage } from "./upload-image-to-blob-storage";
 import { AzureOpenAI } from "openai";
 import { env } from "~/env";
+import { BlobServiceClient } from "@azure/storage-blob";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.query(async ({ ctx }) => {
@@ -29,13 +30,17 @@ export const imageRouter = createTRPCRouter({
       apiVersion: env.AZURE_OPENAI_TEXT_TO_IMAGE_VERSION,
     });
 
+    const azureBlobStorageUri = `https://${env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net`;
+    const blobServiceClient = new BlobServiceClient(azureBlobStorageUri, defaultAzureCredential);
+
     const { prompt, keywords, size } = await generateImagePrompt(chatCompletionClient);
     const { url, width, height } = await generateImageFromPrompt(textToImageClient, prompt, size);
     const orientation = getImageOrientation(width, height);
 
     const imageArrayBuffer = await fetchImageArrayBuffer(url);
     const fileName = generateFileNameFromUrl(url);
-    const downloadUrl = await uploadImageToBlobStorage(defaultAzureCredential, fileName, imageArrayBuffer);
+    const containerName = env.AZURE_STORAGE_ACCOUNT_IMAGES_CONTAINER_NAME;
+    const downloadUrl = await uploadImageToBlobStorage(blobServiceClient, containerName, fileName, imageArrayBuffer);
 
     return ctx.db.image.create({
       data: {
