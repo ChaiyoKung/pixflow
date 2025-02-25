@@ -7,6 +7,8 @@ import { fetchImageArrayBuffer } from "~/utils/fetch-image-array-buffer";
 import { generateImagePrompt } from "./generate-image-prompt";
 import { generateImageFromPrompt } from "./generate-image-from-prompt";
 import { uploadImageToBlobStorage } from "./upload-image-to-blob-storage";
+import { AzureOpenAI } from "openai";
+import { env } from "~/env";
 
 export const imageRouter = createTRPCRouter({
   gen: publicProcedure.query(async ({ ctx }) => {
@@ -15,7 +17,13 @@ export const imageRouter = createTRPCRouter({
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
     const azureADTokenProvider = getBearerTokenProvider(defaultAzureCredential, scope);
 
-    const { prompt, keywords, size } = await generateImagePrompt(azureADTokenProvider);
+    const chatCompletionClient = new AzureOpenAI({
+      azureADTokenProvider,
+      deployment: env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
+      apiVersion: env.AZURE_OPENAI_CHAT_COMPLETION_VERSION,
+    });
+
+    const { prompt, keywords, size } = await generateImagePrompt(chatCompletionClient);
     const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt, size);
     const orientation = getImageOrientation(width, height);
 

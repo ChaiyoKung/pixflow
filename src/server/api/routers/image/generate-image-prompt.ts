@@ -1,18 +1,11 @@
 import { TRPCError } from "@trpc/server";
-import { type AzureClientOptions, AzureOpenAI } from "openai";
+import { type AzureOpenAI } from "openai";
 import { zodResponseFormat } from "openai/helpers/zod.mjs";
-import { env } from "process";
 import { modelInstrcutionsAndContext } from "./model-instructions-and-context";
 import { chatCompletionSchema } from "./schema";
 
-export async function generateImagePrompt(azureADTokenProvider: AzureClientOptions["azureADTokenProvider"]) {
+export async function generateImagePrompt(client: AzureOpenAI) {
   console.log("Generating image prompt...");
-
-  const client = new AzureOpenAI({
-    azureADTokenProvider,
-    deployment: env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
-    apiVersion: env.AZURE_OPENAI_CHAT_COMPLETION_VERSION,
-  });
 
   const prompt = "Write text-to-image prompt";
   const response = await client.chat.completions.create({
