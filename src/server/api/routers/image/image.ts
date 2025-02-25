@@ -12,7 +12,7 @@ import { env } from "~/env";
 import { BlobServiceClient } from "@azure/storage-blob";
 
 export const imageRouter = createTRPCRouter({
-  gen: privateProcedure.query(async ({ ctx }) => {
+  gen: privateProcedure.mutation(async ({ ctx }) => {
     const defaultAzureCredential = new DefaultAzureCredential();
 
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";
