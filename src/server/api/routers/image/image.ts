@@ -23,8 +23,14 @@ export const imageRouter = createTRPCRouter({
       apiVersion: env.AZURE_OPENAI_CHAT_COMPLETION_VERSION,
     });
 
+    const textToImageClient = new AzureOpenAI({
+      azureADTokenProvider,
+      deployment: env.AZURE_OPENAI_TEXT_TO_IMAGE_DEPLOYMENT,
+      apiVersion: env.AZURE_OPENAI_TEXT_TO_IMAGE_VERSION,
+    });
+
     const { prompt, keywords, size } = await generateImagePrompt(chatCompletionClient);
-    const { url, width, height } = await generateImageFromPrompt(azureADTokenProvider, prompt, size);
+    const { url, width, height } = await generateImageFromPrompt(textToImageClient, prompt, size);
     const orientation = getImageOrientation(width, height);
 
     const imageArrayBuffer = await fetchImageArrayBuffer(url);

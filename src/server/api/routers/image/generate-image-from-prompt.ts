@@ -1,21 +1,14 @@
 import { TRPCError } from "@trpc/server";
-import { type AzureClientOptions, AzureOpenAI } from "openai";
+import { type AzureOpenAI } from "openai";
 import { type ImageGenerateParams } from "openai/resources/images.mjs";
-import { env } from "process";
 import { textToImageResponseSchema, sizeTupleSchema } from "./schema";
 
 export async function generateImageFromPrompt(
-  azureADTokenProvider: AzureClientOptions["azureADTokenProvider"],
+  client: AzureOpenAI,
   prompt: string,
   size: NonNullable<ImageGenerateParams["size"]> = "1024x1024"
 ) {
   console.log(`Starting image generation with prompt: "${prompt}" and size: "${size}"...`);
-
-  const client = new AzureOpenAI({
-    azureADTokenProvider,
-    deployment: env.AZURE_OPENAI_TEXT_TO_IMAGE_DEPLOYMENT,
-    apiVersion: env.AZURE_OPENAI_TEXT_TO_IMAGE_VERSION,
-  });
 
   /**
    * The number of images to generate.
