@@ -12,4 +12,5 @@ jobs:
       - name: Send HTTP GET request
         run: |
           curl -X GET "${{ vars.APP_HOST }}${{ vars.GEN_IMAGE_ENDPOINT }}" \
-            -H "Accept: application/json"
+            -H "Accept: application/json" \
+            -o response.txt
