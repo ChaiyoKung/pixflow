@@ -1,0 +1,15 @@
+name: Auto Generate Image
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *" # Every hour
+
+jobs:
+  send-http-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send HTTP GET request
+        run: |
+          curl -X GET "${{ vars.APP_HOST }}${{ vars.GEN_IMAGE_ENDPOINT }}" \
+            -H "Accept: application/json"
