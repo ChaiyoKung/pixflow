@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
 import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity";
 import { getImageOrientation } from "~/utils/get-image-orientation";
 import { z } from "zod";
@@ -12,7 +12,7 @@ import { env } from "~/env";
 import { BlobServiceClient } from "@azure/storage-blob";
 
 export const imageRouter = createTRPCRouter({
-  gen: publicProcedure.query(async ({ ctx }) => {
+  gen: privateProcedure.query(async ({ ctx }) => {
     const defaultAzureCredential = new DefaultAzureCredential();
 
     const scope: string | string[] = "https://cognitiveservices.azure.com/.default";

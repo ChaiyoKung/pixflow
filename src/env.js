@@ -7,6 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    APP_API_KEY: z.string().min(16),
     DATABASE_URL: z.string().url(),
     AZURE_OPENAI_ENDPOINT: z.string().url(),
     AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT: z.string(),
@@ -32,6 +33,7 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    APP_API_KEY: process.env.APP_API_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
     AZURE_OPENAI_ENDPOINT: process.env.AZURE_OPENAI_ENDPOINT,
     AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT: process.env.AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT,
