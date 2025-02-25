@@ -13,4 +13,5 @@ jobs:
         run: |
           curl -X GET "${{ vars.APP_HOST }}${{ vars.GEN_IMAGE_ENDPOINT }}" \
             -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.APP_API_KEY }}" \
             -o response.txt
