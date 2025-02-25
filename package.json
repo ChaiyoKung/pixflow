@@ -17,7 +17,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "format": "prettier \"src/**/*.{css,js,jsx,ts,tsx}\" --write",
+    "format": "prettier \"src/**/*.{css,js,jsx,ts,tsx}\" \".github/workflows/**/*.{yml,yaml}\" --write",
     "test": "vitest"
   },
   "dependencies": {
