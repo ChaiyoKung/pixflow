@@ -1,4 +1,5 @@
 import { type BlobServiceClient } from "@azure/storage-blob";
+import { lookup } from "~/utils/mime-types";
 
 export async function uploadImageToBlobStorage(
   client: BlobServiceClient,
@@ -17,7 +18,7 @@ export async function uploadImageToBlobStorage(
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
   console.log("Uploading image to Azure Blob Storage...");
-  await blockBlobClient.uploadData(data);
+  await blockBlobClient.uploadData(data, { blobHTTPHeaders: { blobContentType: lookup(blobName) } });
 
   const downloadUrl = blockBlobClient.url;
   return downloadUrl;
