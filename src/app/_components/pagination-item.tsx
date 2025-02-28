@@ -11,12 +11,13 @@ export interface PaginationItemProps {
 
 export function PaginationItem({ page, isActive, isDisabled, children }: PaginationItemProps) {
   const size: ActionIconProps["size"] = "lg";
+  const redius: ActionIconProps["radius"] = "0.5rem";
   const notActiveVariant: ActionIconProps["variant"] = "light";
   const notActiveColor: ActionIconProps["color"] = "gray";
 
   if (isDisabled) {
     return (
-      <ActionIcon size={size} variant={notActiveVariant} color={notActiveColor} disabled>
+      <ActionIcon size={size} radius={redius} variant={notActiveVariant} color={notActiveColor} disabled>
         {children}
       </ActionIcon>
     );
@@ -27,6 +28,7 @@ export function PaginationItem({ page, isActive, isDisabled, children }: Paginat
       <ActionIcon
         component="a"
         size={size}
+        radius={redius}
         variant={isActive ? "filled" : notActiveVariant}
         color={isActive ? "blue" : notActiveColor}
       >
