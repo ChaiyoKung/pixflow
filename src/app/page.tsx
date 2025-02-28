@@ -1,11 +1,21 @@
-import { Box, Container } from "@mantine/core";
+import { Box, Container, Space } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
+import { Pagination } from "./_components/pagination";
 
-export default async function Home() {
-  const { images } = await api.image.list({ page: 1, pageSize: 100 });
+const initialPage = 1;
+const pageSize = 10;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const queryParams = await searchParams;
+  const page = typeof queryParams.page === "string" ? parseInt(queryParams.page) : initialPage;
+  const { images, totalPages } = await api.image.list({ page, pageSize });
 
   return (
     <HydrateClient>
@@ -17,6 +27,10 @@ export default async function Home() {
             <ConditionPreviewImage key={image.id} data={image} isNew={index === 0} />
           ))}
         </Box>
+
+        <Space h="xl" />
+        <Pagination total={totalPages} page={page} initialPage={initialPage} siblings={2} />
+        <Space h="xl" />
       </Container>
 
       <Footer />
