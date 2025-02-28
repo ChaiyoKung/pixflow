@@ -18,7 +18,7 @@ export function Pagination(props: PaginationProps) {
   return (
     <Flex gap="xs" justify="center" align="center" wrap="wrap">
       <PaginationItem page={active - 1} isDisabled={active === 1}>
-        <IconChevronLeft />
+        <IconChevronLeft size="1rem" />
       </PaginationItem>
 
       {range.map((page, index) => {
@@ -34,7 +34,7 @@ export function Pagination(props: PaginationProps) {
       })}
 
       <PaginationItem page={active + 1} isDisabled={active === props.total}>
-        <IconChevronRight />
+        <IconChevronRight size="1rem" />
       </PaginationItem>
     </Flex>
   );
