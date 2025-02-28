@@ -24,7 +24,7 @@ export default async function Home({
       <Container component="main">
         <Box style={{ columns: "3", columnGap: "var(--mantine-spacing-sm)" }}>
           {images.map((image, index) => (
-            <ConditionPreviewImage key={image.id} data={image} isNew={index === 0} />
+            <ConditionPreviewImage key={image.id} data={image} isNew={index === 0 && page === 1} />
           ))}
         </Box>
 
