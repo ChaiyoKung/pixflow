@@ -10,7 +10,7 @@ export function PreviewImage({ data }: PreviewImageProps) {
   const { downloadUrl, prompt, width, height } = data;
 
   return (
-    <AspectRatio ratio={width / height} pos="relative" mb="0.5rem">
+    <AspectRatio ratio={width / height} pos="relative" mb="0.5rem" bg="gray" style={{ borderRadius: "0.5rem" }}>
       <NextImage
         src={downloadUrl}
         alt={prompt}
