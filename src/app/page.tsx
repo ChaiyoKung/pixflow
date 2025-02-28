@@ -4,6 +4,7 @@ import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
 import { Pagination } from "./_components/pagination";
+import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 
 const initialPage = 1;
 const pageSize = 10;
@@ -14,7 +15,7 @@ export default async function Home({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const queryParams = await searchParams;
-  const page = typeof queryParams.page === "string" ? parseInt(queryParams.page) : initialPage;
+  const page = parsePageQueryParam(queryParams.page, initialPage);
   const { images, totalPages } = await api.image.list({ page, pageSize });
 
   return (
