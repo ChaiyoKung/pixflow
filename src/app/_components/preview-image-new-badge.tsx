@@ -11,7 +11,7 @@ export function PreviewImageNewBadge({ data }: PreviewImageNewBadgeProps) {
       label="New"
       color="red"
       size="1rem"
-      styles={{ indicator: { transform: "translate(-0.25rem, 0.25rem)" } }}
+      styles={{ indicator: { transform: "translate(-0.5rem, 0.5rem)" } }}
     >
       <PreviewImage data={data} />
     </Indicator>
