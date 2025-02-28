@@ -3,7 +3,7 @@ name: Auto Generate Image
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 * * * *" # Every hour at minute 30 to avoid workflow delays due to long queue times
+    - cron: "30 */4 * * *" # Every 4 hours at minute 30 to avoid workflow delays due to long queue times
 
 jobs:
   send-http-request:
