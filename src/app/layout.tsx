@@ -21,10 +21,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript defaultColorScheme="auto" />
+        <ColorSchemeScript forceColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="auto">
+        <MantineProvider forceColorScheme="dark">
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </MantineProvider>
       </body>
