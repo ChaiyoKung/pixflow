@@ -16,7 +16,7 @@ export function Pagination(props: PaginationProps) {
   const { range, active } = usePagination(props);
 
   return (
-    <Flex gap="0.5rem" justify="center" align="center" wrap="wrap">
+    <Flex gap="xs" justify="center" align="center" wrap="wrap">
       <PaginationItem page={active - 1} isDisabled={active === 1}>
         <IconChevronLeft size="1rem" />
       </PaginationItem>

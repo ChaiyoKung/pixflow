@@ -10,7 +10,13 @@ export function PreviewImage({ data }: PreviewImageProps) {
   const { downloadUrl, prompt, width, height } = data;
 
   return (
-    <AspectRatio ratio={width / height} pos="relative" mb="0.5rem" bg="gray" style={{ borderRadius: "0.5rem" }}>
+    <AspectRatio
+      ratio={width / height}
+      pos="relative"
+      mb="sm"
+      bg="gray"
+      style={{ borderRadius: "var(--mantine-radius-md)" }}
+    >
       <NextImage
         src={downloadUrl}
         alt={prompt}
@@ -21,7 +27,7 @@ export function PreviewImage({ data }: PreviewImageProps) {
           width: "100%",
           height: "auto",
           objectFit: "cover",
-          borderRadius: "0.5rem",
+          borderRadius: "var(--mantine-radius-md)",
 
           // HACK: Fix "next/image" marbin bottom
           // https://stackoverflow.com/questions/10844205/html-5-strange-img-always-adds-3px-margin-at-bottom

@@ -11,7 +11,7 @@ export interface PaginationItemProps {
 
 export function PaginationItem({ page, isActive, isDisabled, children }: PaginationItemProps) {
   const size: ActionIconProps["size"] = "lg";
-  const redius: ActionIconProps["radius"] = "0.5rem";
+  const redius: ActionIconProps["radius"] = "md";
   const notActiveVariant: ActionIconProps["variant"] = "light";
   const notActiveColor: ActionIconProps["color"] = "gray";
 
