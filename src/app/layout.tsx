@@ -1,9 +1,8 @@
 import "@mantine/core/styles.css";
-
 import { type Metadata } from "next";
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
-
 import { TRPCReactProvider } from "~/trpc/react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "PixFlow",
@@ -27,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <MantineProvider forceColorScheme="dark">
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </MantineProvider>
+        <Analytics />
       </body>
     </html>
   );
