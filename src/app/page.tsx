@@ -1,4 +1,4 @@
-import { Box, Container, Space } from "@mantine/core";
+import { Box, Container, Flex, Space, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
@@ -16,13 +16,19 @@ export default async function Home({
 }) {
   const queryParams = await searchParams;
   const page = parsePageQueryParam(queryParams.page, initialPage);
-  const { images, totalPages } = await api.image.list({ page, pageSize });
+  const { images, totalPages, total } = await api.image.list({ page, pageSize });
 
   return (
     <HydrateClient>
       <Header />
 
       <Container component="main">
+        <Flex mb="xs" justify="end">
+          <Text size="lg" c="blue">
+            Total Images: {total}
+          </Text>
+        </Flex>
+
         <Box style={{ columns: "3", columnGap: "var(--mantine-spacing-sm)" }}>
           {images.map((image, index) => (
             <ConditionPreviewImage key={image.id} data={image} isNew={index === 0 && page === 1} />
