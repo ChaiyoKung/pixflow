@@ -17,8 +17,24 @@ import { Footer } from "~/app/_components/footer";
 import Image from "next/image";
 import { IconPhotoDown } from "@tabler/icons-react";
 import { BackActiveIcon } from "~/components/back-action-icon";
+import { type Metadata } from "next";
 
-export default async function ImageDetail({ params }: { params: Promise<{ imageId: string }> }) {
+interface ImageDetailProps {
+  params: Promise<{ imageId: string }>;
+}
+
+export async function generateMetadata({ params }: ImageDetailProps): Promise<Metadata> {
+  const { imageId } = await params;
+  const { prompt, keywords } = await api.image.get({ id: imageId });
+
+  return {
+    title: "Image Detail | PixFlow",
+    description: prompt,
+    keywords,
+  };
+}
+
+export default async function ImageDetail({ params }: ImageDetailProps) {
   const { imageId } = await params;
   const { prompt, downloadUrl, width, height, orientation, keywords } = await api.image.get({ id: imageId });
 
