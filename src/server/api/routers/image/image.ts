@@ -10,6 +10,7 @@ import { uploadImageToBlobStorage } from "./upload-image-to-blob-storage";
 import { AzureOpenAI } from "openai";
 import { env } from "~/env";
 import { BlobServiceClient } from "@azure/storage-blob";
+import { TRPCError } from "@trpc/server";
 
 export const imageRouter = createTRPCRouter({
   gen: privateProcedure.mutation(async ({ ctx }) => {
@@ -82,4 +83,11 @@ export const imageRouter = createTRPCRouter({
         totalPages,
       };
     }),
+
+  get: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+    const { id } = input;
+    const image = await ctx.db.image.findUnique({ where: { id } });
+    if (!image) throw new TRPCError({ code: "NOT_FOUND", message: "Image not found" });
+    return image;
+  }),
 });
