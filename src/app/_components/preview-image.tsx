@@ -24,7 +24,8 @@ export function PreviewImage({ data }: PreviewImageProps) {
           alt={prompt}
           width={width}
           height={height}
-          quality={10}
+          // quality={10}
+          unoptimized
           style={{
             width: "100%",
             height: "auto",

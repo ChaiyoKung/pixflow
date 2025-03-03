@@ -42,7 +42,7 @@ export default async function ImageDetail({ params }: ImageDetailProps) {
     <HydrateClient>
       <Header />
 
-      <Container component="main">
+      <Container size="lg" component="main">
         <Flex mb="sm" justify="space-between">
           <BackActiveIcon />
 
@@ -64,7 +64,8 @@ export default async function ImageDetail({ params }: ImageDetailProps) {
               alt={prompt}
               width={width}
               height={height}
-              quality={75}
+              // quality={75}
+              unoptimized
               style={{
                 width: "100%",
                 height: "auto",
