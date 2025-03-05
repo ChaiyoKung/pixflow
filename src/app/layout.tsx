@@ -3,6 +3,7 @@ import { type Metadata } from "next";
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "PixFlow",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </MantineProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
