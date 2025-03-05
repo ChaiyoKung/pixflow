@@ -64,8 +64,7 @@ export default async function ImageDetail({ params }: ImageDetailProps) {
               alt={prompt}
               width={width}
               height={height}
-              // quality={75}
-              unoptimized
+              quality={75}
               style={{
                 width: "100%",
                 height: "auto",
