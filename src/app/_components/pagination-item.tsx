@@ -1,6 +1,10 @@
+"use client";
+
 import { ActionIcon, type ActionIconProps } from "@mantine/core";
 import NextLink from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { type ReactNode } from "react";
+import { convertSearchParamsToObject } from "../../utils/convert-search-params-to-object";
 
 export interface PaginationItemProps {
   page: number;
@@ -10,6 +14,9 @@ export interface PaginationItemProps {
 }
 
 export function PaginationItem({ page, isActive, isDisabled, children }: PaginationItemProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const size: ActionIconProps["size"] = "lg";
   const redius: ActionIconProps["radius"] = "md";
   const notActiveVariant: ActionIconProps["variant"] = "light";
@@ -24,7 +31,14 @@ export function PaginationItem({ page, isActive, isDisabled, children }: Paginat
   }
 
   return (
-    <NextLink href={{ pathname: "/", query: { page } }} passHref legacyBehavior>
+    <NextLink
+      href={{
+        pathname,
+        query: { ...convertSearchParamsToObject(searchParams), page },
+      }}
+      passHref
+      legacyBehavior
+    >
       <ActionIcon
         component="a"
         size={size}
