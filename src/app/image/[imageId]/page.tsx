@@ -18,6 +18,7 @@ import Image from "next/image";
 import { IconPhotoDown } from "@tabler/icons-react";
 import { BackActiveIcon } from "~/components/back-action-icon";
 import { type Metadata } from "next";
+import NextLink from "next/link";
 
 interface ImageDetailProps {
   params: Promise<{ imageId: string }>;
@@ -85,9 +86,11 @@ export default async function ImageDetail({ params }: ImageDetailProps) {
               </Title>
               <Flex wrap="wrap" gap="xs">
                 {keywords.map((keyword) => (
-                  <Badge key={keyword} variant="filled">
-                    {keyword}
-                  </Badge>
+                  <NextLink key={keyword} href={`/keyword/${keyword}`}>
+                    <Badge variant="filled" styles={{ root: { cursor: "pointer" } }}>
+                      {keyword}
+                    </Badge>
+                  </NextLink>
                 ))}
               </Flex>
             </Stack>
