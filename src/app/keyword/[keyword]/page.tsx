@@ -31,7 +31,7 @@ export default async function KeywordPage({ params, searchParams }: KeywordPageP
           <Flex align="center" gap="xs">
             <BackActiveIcon />
             <Text size="lg" fw="bold">
-              Keyword: {keyword}
+              Keyword: {decodeURIComponent(keyword)}
             </Text>
           </Flex>
           <Text size="lg" c="blue">
