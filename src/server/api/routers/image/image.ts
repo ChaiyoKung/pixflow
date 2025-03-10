@@ -11,6 +11,7 @@ import { AzureOpenAI } from "openai";
 import { env } from "~/env";
 import { BlobServiceClient } from "@azure/storage-blob";
 import { TRPCError } from "@trpc/server";
+import { type Prisma } from "@prisma/client";
 
 export const imageRouter = createTRPCRouter({
   gen: privateProcedure.mutation(async ({ ctx }) => {
@@ -61,18 +62,27 @@ export const imageRouter = createTRPCRouter({
       z.object({
         page: z.number().min(1).default(1),
         pageSize: z.number().min(1).max(100).default(10),
+        keywords: z.array(z.string()).default([]),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { page, pageSize } = input;
+      const { page, pageSize, keywords } = input;
+
+      const where: Prisma.ImageWhereInput = {};
+      if (keywords.length > 0) {
+        where.keywords = {
+          hasSome: keywords,
+        };
+      }
 
       const images = await ctx.db.image.findMany({
+        where,
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * pageSize,
         take: pageSize,
       });
 
-      const total = await ctx.db.image.count();
+      const total = await ctx.db.image.count({ where });
       const totalPages = Math.ceil(total / pageSize);
 
       return {
