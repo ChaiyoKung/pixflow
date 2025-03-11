@@ -20,7 +20,11 @@ export default async function KeywordPage({ params, searchParams }: KeywordPageP
   const { keyword } = await params;
   const queryParams = await searchParams;
   const page = parsePageQueryParam(queryParams.page, initialPage);
-  const { images, totalPages, total } = await api.image.list({ page, pageSize, keywords: [keyword] });
+  const { images, totalPages, total } = await api.image.list({
+    page,
+    pageSize,
+    keywords: [decodeURIComponent(keyword)],
+  });
 
   return (
     <HydrateClient>
