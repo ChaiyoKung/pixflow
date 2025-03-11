@@ -28,6 +28,7 @@ export function Pagination({ page, ...props }: PaginationProps) {
   return (
     <MtPagination
       {...props}
+      value={page}
       getItemProps={(page) => ({
         component: NextLink,
         href: { pathname, query: { ...convertSearchParamsToObject(searchParams), page } },
