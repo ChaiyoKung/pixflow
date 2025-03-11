@@ -5,8 +5,8 @@ import { Footer } from "~/components/footer";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { VerticalMasonry } from "~/components/vertical-masonry";
 import { ConditionPreviewImage } from "~/app/_components/condition-preview-image";
-import { BackActiveIcon } from "../../../components/back-action-icon";
-import { Pagination } from "../../../components/pagination";
+import { BackActiveIcon } from "~/components/back-action-icon";
+import { Pagination } from "~/components/pagination";
 
 const initialPage = 1;
 const pageSize = 10;
