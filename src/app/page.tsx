@@ -1,6 +1,6 @@
 import { Center, Container, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
-import { Header } from "./_components/header";
+import { Header } from "../components/header";
 import { Footer } from "./_components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";

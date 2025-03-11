@@ -1,5 +1,5 @@
 import { Button, Container, Stack, Title } from "@mantine/core";
-import { Header } from "./_components/header";
+import { Header } from "../components/header";
 import { Footer } from "./_components/footer";
 import Link from "next/link";
 

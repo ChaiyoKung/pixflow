@@ -12,7 +12,7 @@ import {
   Title,
 } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
-import { Header } from "~/app/_components/header";
+import { Header } from "~/components/header";
 import { Footer } from "~/app/_components/footer";
 import Image from "next/image";
 import { IconPhotoDown } from "@tabler/icons-react";
