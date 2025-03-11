@@ -63,16 +63,20 @@ export const imageRouter = createTRPCRouter({
         page: z.number().min(1).default(1),
         pageSize: z.number().min(1).max(100).default(10),
         keywords: z.array(z.string()).default([]),
+        orientation: z.enum(["horizontal", "vertical", "square"]).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { page, pageSize, keywords } = input;
+      const { page, pageSize, keywords, orientation } = input;
 
       const where: Prisma.ImageWhereInput = {};
       if (keywords.length > 0) {
         where.keywords = {
           hasSome: keywords,
         };
+      }
+      if (orientation) {
+        where.orientation = orientation;
       }
 
       const images = await ctx.db.image.findMany({
