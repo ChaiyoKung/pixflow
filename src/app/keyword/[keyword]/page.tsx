@@ -1,7 +1,7 @@
 import { Center, Container, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
 import { Header } from "~/components/header";
-import { Footer } from "~/app/_components/footer";
+import { Footer } from "~/components/footer";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { VerticalMasonry } from "~/components/VerticalMasonry";
 import { ConditionPreviewImage } from "~/app/_components/condition-preview-image";

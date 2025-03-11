@@ -1,6 +1,6 @@
 import { Button, Container, Stack, Title } from "@mantine/core";
 import { Header } from "../components/header";
-import { Footer } from "./_components/footer";
+import { Footer } from "../components/footer";
 import Link from "next/link";
 
 export default function NotFound() {
