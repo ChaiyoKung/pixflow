@@ -1,11 +1,11 @@
-import { Container, Flex, Space, Text } from "@mantine/core";
+import { Center, Container, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
-import { Pagination } from "./_components/pagination";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { VerticalMasonry } from "~/components/VerticalMasonry";
+import { Pagination } from "~/components/pagination";
 
 const initialPage = 1;
 const pageSize = 10;
@@ -36,9 +36,9 @@ export default async function Home({
           ))}
         </VerticalMasonry>
 
-        <Space h="xl" />
-        <Pagination total={totalPages} page={page} initialPage={initialPage} siblings={2} />
-        <Space h="xl" />
+        <Center my="xl">
+          <Pagination total={totalPages} page={page} siblings={2} />
+        </Center>
       </Container>
 
       <Footer />
