@@ -4,7 +4,7 @@ import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
-import { VerticalMasonry } from "~/components/VerticalMasonry";
+import { VerticalMasonry } from "~/components/vertical-masonry";
 import { Pagination } from "~/components/pagination";
 
 const initialPage = 1;

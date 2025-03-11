@@ -1,5 +1,5 @@
 import { Box } from "@mantine/core";
-import classes from "./VerticalMasonry.module.css";
+import classes from "./vertical-masonry.module.css";
 
 export interface VerticalMasonryProps {
   children?: React.ReactNode;

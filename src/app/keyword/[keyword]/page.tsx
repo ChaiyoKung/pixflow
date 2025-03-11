@@ -3,7 +3,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
-import { VerticalMasonry } from "~/components/VerticalMasonry";
+import { VerticalMasonry } from "~/components/vertical-masonry";
 import { ConditionPreviewImage } from "~/app/_components/condition-preview-image";
 import { BackActiveIcon } from "../../../components/back-action-icon";
 import { Pagination } from "../../../components/pagination";
