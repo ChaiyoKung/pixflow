@@ -1,4 +1,4 @@
-import { type ImageOrientation } from "../types";
+import { type ImageOrientation } from "~/types";
 
 export function getImageOrientation(width: number, height: number): ImageOrientation {
   if (width > height) return "horizontal";

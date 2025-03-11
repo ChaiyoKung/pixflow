@@ -3,7 +3,7 @@
 import { Pagination as MtPagination, type PaginationProps as MtPaginationProps } from "@mantine/core";
 import NextLink from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { convertSearchParamsToObject } from "../utils/convert-search-params-to-object";
+import { convertSearchParamsToObject } from "~/utils/convert-search-params-to-object";
 
 export interface PaginationProps
   extends Omit<
