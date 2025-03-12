@@ -28,7 +28,7 @@ export default async function Home({
       <VerticalMasonry>
         {images.map((image, index) => (
           <NextLink key={image.id} href={`/image/${image.id}`}>
-            <ConditionPreviewImage data={image} isNew={index === 0 && page === 1} mb="sm" />
+            <ConditionPreviewImage data={image} isNew={index === 0 && page === 1} quality={10} mb="sm" />
           </NextLink>
         ))}
       </VerticalMasonry>

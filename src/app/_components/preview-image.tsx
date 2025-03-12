@@ -1,12 +1,13 @@
 import { AspectRatio, type AspectRatioProps } from "@mantine/core";
-import NextImage from "next/image";
+import NextImage, { type ImageProps } from "next/image";
 import { type Image } from "@prisma/client";
 
 export interface PreviewImageProps extends AspectRatioProps {
   data: Image;
+  quality?: ImageProps["quality"];
 }
 
-export function PreviewImage({ data, ...props }: PreviewImageProps) {
+export function PreviewImage({ data, quality, ...props }: PreviewImageProps) {
   const { downloadUrl, prompt, width, height } = data;
 
   return (
@@ -22,7 +23,7 @@ export function PreviewImage({ data, ...props }: PreviewImageProps) {
         alt={prompt}
         width={width}
         height={height}
-        quality={10}
+        quality={quality}
         style={{
           width: "100%",
           height: "auto",

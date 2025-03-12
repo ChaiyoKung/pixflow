@@ -40,7 +40,7 @@ export default async function KeywordPage({ params, searchParams }: KeywordPageP
       <VerticalMasonry>
         {images.map((image) => (
           <NextLink key={image.id} href={`/image/${image.id}`}>
-            <ConditionPreviewImage data={image} mb="sm" />
+            <ConditionPreviewImage data={image} quality={10} mb="sm" />
           </NextLink>
         ))}
       </VerticalMasonry>
