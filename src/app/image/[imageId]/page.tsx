@@ -3,7 +3,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import { IconPhotoDown } from "@tabler/icons-react";
 import { BackActiveIcon } from "~/components";
 import { type Metadata } from "next";
-import NextLink from "next/link";
+import Link from "next/link";
 import { PreviewImage } from "~/app/_components/preview-image";
 
 interface ImageDetailProps {
@@ -46,11 +46,11 @@ export default async function ImageDetail({ params }: ImageDetailProps) {
             </Title>
             <Flex wrap="wrap" gap="xs">
               {keywords.map((keyword) => (
-                <NextLink key={keyword} href={`/keyword/${keyword}`}>
+                <Link key={keyword} href={`/keyword/${keyword}`}>
                   <Badge variant="filled" styles={{ root: { cursor: "pointer" } }}>
                     {keyword}
                   </Badge>
-                </NextLink>
+                </Link>
               ))}
             </Flex>
           </Stack>

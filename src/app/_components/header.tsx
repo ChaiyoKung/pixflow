@@ -1,5 +1,5 @@
 import { Flex, Title, UnstyledButton } from "@mantine/core";
-import NextLink from "next/link";
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -12,11 +12,11 @@ export function Header() {
       top={0}
       styles={{ root: { backdropFilter: "blur(3rem)", zIndex: 9999, backgroundColor: "rgba(36, 36, 36, 0.75)" } }}
     >
-      <NextLink href="/" passHref legacyBehavior>
+      <Link href="/" passHref legacyBehavior>
         <UnstyledButton component="a">
           <Title order={1}>PixFlow</Title>
         </UnstyledButton>
-      </NextLink>
+      </Link>
     </Flex>
   );
 }
