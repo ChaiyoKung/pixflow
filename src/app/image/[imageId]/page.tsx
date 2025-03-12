@@ -2,7 +2,7 @@ import { AspectRatio, Badge, Button, Card, Divider, Flex, SimpleGrid, Stack, Tex
 import { api, HydrateClient } from "~/trpc/server";
 import Image from "next/image";
 import { IconPhotoDown } from "@tabler/icons-react";
-import { BackActiveIcon } from "~/components/back-action-icon";
+import { BackActiveIcon } from "~/components";
 import { type Metadata } from "next";
 import NextLink from "next/link";
 

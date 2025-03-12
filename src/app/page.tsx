@@ -2,8 +2,7 @@ import { Center, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
-import { VerticalMasonry } from "~/components/vertical-masonry";
-import { Pagination } from "~/components/pagination";
+import { Pagination, VerticalMasonry } from "~/components";
 
 const initialPage = 1;
 const pageSize = 10;
