@@ -52,6 +52,7 @@ export function Pagination({ page, ...props }: PaginationProps) {
 
         return {};
       }}
+      radius="md"
     />
   );
 }
