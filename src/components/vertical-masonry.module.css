@@ -1,5 +1,6 @@
 .root {
   columns: 1;
+  gap: var(--mantine-spacing-sm);
 }
 
 /* xs */
