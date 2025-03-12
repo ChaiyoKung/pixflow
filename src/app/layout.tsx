@@ -1,9 +1,11 @@
 import "@mantine/core/styles.css";
 import { type Metadata } from "next";
-import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, Container, mantineHtmlProps, MantineProvider, Stack } from "@mantine/core";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Header } from "~/components/header";
+import { Footer } from "~/components/footer";
 
 export const metadata: Metadata = {
   title: "PixFlow",
@@ -25,7 +27,26 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <MantineProvider forceColorScheme="dark">
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <Stack gap={0} mih="100vh">
+              <Header />
+              <Container
+                size="lg"
+                component="main"
+                flex={1}
+                w="100%"
+                styles={{
+                  root: {
+                    display: "flex",
+                    flexDirection: "column",
+                  },
+                }}
+              >
+                {children}
+              </Container>
+              <Footer />
+            </Stack>
+          </TRPCReactProvider>
         </MantineProvider>
         <Analytics />
         <SpeedInsights />

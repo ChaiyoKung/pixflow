@@ -1,37 +1,19 @@
-import { Button, Container, Stack, Title } from "@mantine/core";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
+import { Button, Stack, Title } from "@mantine/core";
 import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <Stack mih="100vh">
-      <Header />
+    <Stack align="center" justify="center" flex={1}>
+      <Stack gap={0} align="center">
+        <Title order={1}>404</Title>
+        <Title order={2}>Page not found</Title>
+      </Stack>
 
-      <Container
-        component="main"
-        flex={1}
-        display="flex"
-        style={{
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "var(--mantine-spacing-md)",
-        }}
-      >
-        <Stack gap={0} justify="center" align="center">
-          <Title order={1}>404</Title>
-          <Title order={2}>Page not found</Title>
-        </Stack>
-
-        <Link href="/" passHref legacyBehavior>
-          <Button component="a" radius="md">
-            Back to home page
-          </Button>
-        </Link>
-      </Container>
-
-      <Footer />
+      <Link href="/" passHref legacyBehavior>
+        <Button component="a" radius="md">
+          Back to home page
+        </Button>
+      </Link>
     </Stack>
   );
 }

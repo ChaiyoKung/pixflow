@@ -1,7 +1,5 @@
-import { Center, Container, Flex, Text } from "@mantine/core";
+import { Center, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
 import { ConditionPreviewImage } from "./_components/condition-preview-image";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { VerticalMasonry } from "~/components/vertical-masonry";
@@ -21,27 +19,21 @@ export default async function Home({
 
   return (
     <HydrateClient>
-      <Header />
+      <Flex mb="xs" justify="end">
+        <Text size="lg" c="blue">
+          Total Images: {total}
+        </Text>
+      </Flex>
 
-      <Container size="lg" component="main">
-        <Flex mb="xs" justify="end">
-          <Text size="lg" c="blue">
-            Total Images: {total}
-          </Text>
-        </Flex>
+      <VerticalMasonry>
+        {images.map((image, index) => (
+          <ConditionPreviewImage key={image.id} data={image} isNew={index === 0 && page === 1} />
+        ))}
+      </VerticalMasonry>
 
-        <VerticalMasonry>
-          {images.map((image, index) => (
-            <ConditionPreviewImage key={image.id} data={image} isNew={index === 0 && page === 1} />
-          ))}
-        </VerticalMasonry>
-
-        <Center my="xl">
-          <Pagination total={totalPages} page={page} siblings={2} />
-        </Center>
-      </Container>
-
-      <Footer />
+      <Center my="xl">
+        <Pagination total={totalPages} page={page} siblings={2} />
+      </Center>
     </HydrateClient>
   );
 }

@@ -1,7 +1,5 @@
-import { Center, Container, Flex, Text } from "@mantine/core";
+import { Center, Flex, Text } from "@mantine/core";
 import { api, HydrateClient } from "~/trpc/server";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { VerticalMasonry } from "~/components/vertical-masonry";
 import { ConditionPreviewImage } from "~/app/_components/condition-preview-image";
@@ -28,33 +26,27 @@ export default async function KeywordPage({ params, searchParams }: KeywordPageP
 
   return (
     <HydrateClient>
-      <Header />
-
-      <Container size="lg" component="main">
-        <Flex mb="xs" justify="space-between" align="end">
-          <Flex align="center" gap="xs">
-            <BackActiveIcon />
-            <Text size="lg" fw="bold">
-              Keyword: {decodeURIComponent(keyword)}
-            </Text>
-          </Flex>
-          <Text size="lg" c="blue">
-            Total Images: {total}
+      <Flex mb="xs" justify="space-between" align="end">
+        <Flex align="center" gap="xs">
+          <BackActiveIcon />
+          <Text size="lg" fw="bold">
+            Keyword: {decodeURIComponent(keyword)}
           </Text>
         </Flex>
+        <Text size="lg" c="blue">
+          Total Images: {total}
+        </Text>
+      </Flex>
 
-        <VerticalMasonry>
-          {images.map((image) => (
-            <ConditionPreviewImage key={image.id} data={image} />
-          ))}
-        </VerticalMasonry>
+      <VerticalMasonry>
+        {images.map((image) => (
+          <ConditionPreviewImage key={image.id} data={image} />
+        ))}
+      </VerticalMasonry>
 
-        <Center my="xl">
-          <Pagination total={totalPages} page={page} siblings={2} />
-        </Center>
-      </Container>
-
-      <Footer />
+      <Center my="xl">
+        <Pagination total={totalPages} page={page} siblings={2} />
+      </Center>
     </HydrateClient>
   );
 }
