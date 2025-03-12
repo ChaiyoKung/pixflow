@@ -4,8 +4,8 @@ import { ColorSchemeScript, Container, mantineHtmlProps, MantineProvider, Stack 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
+import { Header } from "./_components/header";
+import { Footer } from "./_components/footer";
 
 export const metadata: Metadata = {
   title: "PixFlow",
