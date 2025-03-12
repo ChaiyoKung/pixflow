@@ -3,7 +3,7 @@ import { PreviewImage, type PreviewImageProps } from "./preview-image";
 
 export type PreviewImageNewBadgeProps = PreviewImageProps;
 
-export function PreviewImageNewBadge({ data }: PreviewImageNewBadgeProps) {
+export function PreviewImageNewBadge({ data, ...props }: PreviewImageNewBadgeProps) {
   return (
     <Indicator
       key={data.id}
@@ -13,7 +13,7 @@ export function PreviewImageNewBadge({ data }: PreviewImageNewBadgeProps) {
       size="1rem"
       styles={{ indicator: { transform: "translate(-0.5rem, 0.5rem)" } }}
     >
-      <PreviewImage data={data} />
+      <PreviewImage data={data} {...props} />
     </Indicator>
   );
 }

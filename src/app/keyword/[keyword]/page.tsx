@@ -3,6 +3,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import { parsePageQueryParam } from "~/utils/parse-page-query-param";
 import { ConditionPreviewImage } from "~/app/_components/condition-preview-image";
 import { BackActiveIcon, Pagination, VerticalMasonry } from "~/components";
+import NextLink from "next/link";
 
 const initialPage = 1;
 const pageSize = 10;
@@ -38,7 +39,9 @@ export default async function KeywordPage({ params, searchParams }: KeywordPageP
 
       <VerticalMasonry>
         {images.map((image) => (
-          <ConditionPreviewImage key={image.id} data={image} />
+          <NextLink key={image.id} href={`/image/${image.id}`}>
+            <ConditionPreviewImage data={image} mb="sm" />
+          </NextLink>
         ))}
       </VerticalMasonry>
 

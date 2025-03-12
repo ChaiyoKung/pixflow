@@ -5,7 +5,7 @@ export interface ConditionPreviewImageProps extends PreviewImageProps {
   isNew?: boolean;
 }
 
-export function ConditionPreviewImage({ data, isNew }: ConditionPreviewImageProps) {
-  if (isNew) return <PreviewImageNewBadge data={data} />;
-  return <PreviewImage data={data} />;
+export function ConditionPreviewImage({ data, isNew, ...props }: ConditionPreviewImageProps) {
+  if (isNew) return <PreviewImageNewBadge data={data} {...props} />;
+  return <PreviewImage data={data} {...props} />;
 }
