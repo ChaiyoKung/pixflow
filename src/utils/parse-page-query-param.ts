@@ -5,7 +5,7 @@
  * @param [initialPage=1] The initial page number to return if the page query parameter is invalid or not provided.
  * @returns The parsed page number or the initial page number if the input is invalid.
  */
-export function parsePageQueryParam(page: string | string[] | undefined, initialPage = 1) {
+export function parsePageQueryParam(page: string | string[] | null | undefined, initialPage = 1) {
   if (typeof page === "string" && /^\d+$/.exec(page)) {
     return parseInt(page);
   }

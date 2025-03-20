@@ -51,4 +51,14 @@ describe("parsePageQueryParam", () => {
     const page = parsePageQueryParam(["", "3", "4"], 2);
     expect(page).toBe(3);
   });
+
+  it("should return default page number when input is null", () => {
+    const page = parsePageQueryParam(null);
+    expect(page).toBe(1);
+  });
+
+  it("should return provided default page number when input is null", () => {
+    const page = parsePageQueryParam(null, 2);
+    expect(page).toBe(2);
+  });
 });
