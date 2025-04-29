@@ -1,8 +1,6 @@
 import { Flex, Text } from "@mantine/core";
 import { HydrateClient } from "~/trpc/server";
-import { BackActiveIcon } from "~/components";
-import { TotalImage } from "../../_components/total-image";
-import { InfinityPreviewImage } from "../../_components/infinity-preview-image";
+import { BackActiveIcon, InfinityPreviewImage, TotalImage } from "~/components";
 
 interface KeywordPageProps {
   params: Promise<{ keyword: string }>;

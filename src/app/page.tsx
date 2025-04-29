@@ -1,7 +1,6 @@
 import { Flex } from "@mantine/core";
 import { HydrateClient } from "~/trpc/server";
-import { InfinityPreviewImage } from "./_components/infinity-preview-image";
-import { TotalImage } from "./_components/total-image";
+import { InfinityPreviewImage, TotalImage } from "~/components";
 
 export default async function Home() {
   return (

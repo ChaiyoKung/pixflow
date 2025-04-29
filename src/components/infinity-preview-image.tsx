@@ -3,10 +3,10 @@
 import { Fragment, useEffect } from "react";
 import { api } from "~/trpc/react";
 import Link from "next/link";
-import { ConditionPreviewImage } from "./condition-preview-image";
+import { ConditionPreviewImage } from "../app/_components/condition-preview-image";
 import { Alert, Button, Center, SimpleGrid } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
-import { PreviewImageSkeleton } from "./preview-image-skeleton";
+import { PreviewImageSkeleton } from "../app/_components/preview-image-skeleton";
 
 const limit = 12;
 
