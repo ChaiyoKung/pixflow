@@ -3,8 +3,12 @@
 import { Text } from "@mantine/core";
 import { api } from "~/trpc/react";
 
-export function TotalImage() {
-  const { isLoading, isError, error, data } = api.image.count.useQuery({});
+export interface TotalImageProps {
+  keywords?: string[];
+}
+
+export function TotalImage({ keywords }: TotalImageProps) {
+  const { isLoading, isError, error, data } = api.image.count.useQuery({ keywords });
 
   let total: string;
   if (isLoading) {

@@ -10,9 +10,13 @@ import { PreviewImageSkeleton } from "./preview-image-skeleton";
 
 const limit = 12;
 
-export function InfinityPreviewImage() {
+export interface InfinityPreviewImageProps {
+  keywords?: string[];
+}
+
+export function InfinityPreviewImage({ keywords }: InfinityPreviewImageProps) {
   const { isLoading, error, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    api.image.infinity.useInfiniteQuery({ limit }, { getNextPageParam: (lastPage) => lastPage.nextCursor });
+    api.image.infinity.useInfiniteQuery({ limit, keywords }, { getNextPageParam: (lastPage) => lastPage.nextCursor });
 
   const { ref, entry } = useIntersection({
     threshold: 0,
