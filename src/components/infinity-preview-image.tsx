@@ -54,7 +54,7 @@ export function InfinityPreviewImage({ keywords }: InfinityPreviewImageProps) {
           <Fragment key={pageIndex}>
             {page.images.map((image, imageIndex) => (
               <Link key={image.id} href={`/image/${image.id}`}>
-                <ConditionPreviewImage data={image} isNew={pageIndex === 0 && imageIndex === 0} quality={10} />
+                <ConditionPreviewImage data={image} isNew={pageIndex === 0 && imageIndex === 0} quality={10} square />
               </Link>
             ))}
           </Fragment>

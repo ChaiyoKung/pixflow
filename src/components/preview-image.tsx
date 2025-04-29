@@ -5,15 +5,17 @@ import { type Image } from "@prisma/client";
 export interface PreviewImageProps extends AspectRatioProps {
   data: Image;
   quality?: NextImageProps["quality"];
+  square?: boolean;
 }
 
-export function PreviewImage({ data, quality, ...props }: PreviewImageProps) {
+export function PreviewImage({ data, quality, square, ...props }: PreviewImageProps) {
   const { downloadUrl, prompt, width, height } = data;
+  const ratio = square ? 1 / 1 : width / height;
 
   return (
     <AspectRatio
       {...props}
-      ratio={1 / 1}
+      ratio={ratio}
       pos="relative"
       bg="gray"
       style={{ borderRadius: "var(--mantine-radius-md)", ...props.style }}
