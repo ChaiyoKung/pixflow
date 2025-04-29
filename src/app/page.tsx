@@ -9,7 +9,7 @@ export default async function Home() {
         <TotalImage />
       </Flex>
 
-      <InfinityPreviewImage />
+      <InfinityPreviewImage showNew />
     </HydrateClient>
   );
 }

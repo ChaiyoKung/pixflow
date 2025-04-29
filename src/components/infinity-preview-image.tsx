@@ -12,9 +12,10 @@ const limit = 12;
 
 export interface InfinityPreviewImageProps {
   keywords?: string[];
+  showNew?: boolean;
 }
 
-export function InfinityPreviewImage({ keywords }: InfinityPreviewImageProps) {
+export function InfinityPreviewImage({ keywords, showNew }: InfinityPreviewImageProps) {
   const { isLoading, error, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     api.image.infinity.useInfiniteQuery({ limit, keywords }, { getNextPageParam: (lastPage) => lastPage.nextCursor });
 
@@ -54,7 +55,12 @@ export function InfinityPreviewImage({ keywords }: InfinityPreviewImageProps) {
           <Fragment key={pageIndex}>
             {page.images.map((image, imageIndex) => (
               <Link key={image.id} href={`/image/${image.id}`}>
-                <ConditionPreviewImage data={image} isNew={pageIndex === 0 && imageIndex === 0} quality={10} square />
+                <ConditionPreviewImage
+                  data={image}
+                  isNew={showNew && pageIndex === 0 && imageIndex === 0}
+                  quality={10}
+                  square
+                />
               </Link>
             ))}
           </Fragment>
