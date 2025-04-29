@@ -4,7 +4,7 @@ import { IconPhotoDown } from "@tabler/icons-react";
 import { BackActiveIcon } from "~/components";
 import { type Metadata } from "next";
 import Link from "next/link";
-import { PreviewImage } from "~/app/_components/preview-image";
+import { PreviewImage } from "~/components/preview-image";
 
 interface ImageDetailProps {
   params: Promise<{ imageId: string }>;

@@ -98,6 +98,71 @@ export const imageRouter = createTRPCRouter({
       };
     }),
 
+  count: publicProcedure
+    .input(
+      z.object({
+        keywords: z.array(z.string()).default([]),
+        orientation: z.enum(["horizontal", "vertical", "square"]).optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { keywords, orientation } = input;
+
+      const where: Prisma.ImageWhereInput = {};
+      if (keywords.length > 0) {
+        where.keywords = {
+          hasSome: keywords,
+        };
+      }
+      if (orientation) {
+        where.orientation = orientation;
+      }
+
+      return ctx.db.image.count({ where });
+    }),
+
+  infinity: publicProcedure
+    .input(
+      z.object({
+        cursor: z.number().nullish(),
+        limit: z.number().min(1).max(100).default(10),
+        keywords: z.array(z.string()).default([]),
+        orientation: z.enum(["horizontal", "vertical", "square"]).optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { cursor, limit, keywords, orientation } = input;
+      const page = cursor ?? 1;
+
+      const where: Prisma.ImageWhereInput = {};
+      if (keywords.length > 0) {
+        where.keywords = {
+          hasSome: keywords,
+        };
+      }
+      if (orientation) {
+        where.orientation = orientation;
+      }
+
+      const images = await ctx.db.image.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * limit,
+        take: limit + 1,
+      });
+
+      let nextCursor: typeof cursor = undefined;
+      if (images.length > limit) {
+        images.pop();
+        nextCursor = page + 1;
+      }
+
+      return {
+        images,
+        nextCursor,
+      };
+    }),
+
   get: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
     const { id } = input;
     const image = await ctx.db.image.findUnique({ where: { id } });
