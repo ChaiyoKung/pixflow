@@ -10,6 +10,7 @@ interface KeywordPageProps {
 
 export default async function KeywordPage({ params }: KeywordPageProps) {
   const { keyword } = await params;
+  const decodedKeyword = decodeURIComponent(keyword);
 
   return (
     <HydrateClient>
@@ -17,13 +18,13 @@ export default async function KeywordPage({ params }: KeywordPageProps) {
         <Flex align="center" gap="xs">
           <BackActiveIcon />
           <Text size="lg" fw="bold">
-            Keyword: {decodeURIComponent(keyword)}
+            Keyword: {decodedKeyword}
           </Text>
         </Flex>
-        <TotalImage keywords={[decodeURIComponent(keyword)]} />
+        <TotalImage keywords={[decodedKeyword]} />
       </Flex>
 
-      <InfinityPreviewImage keywords={[decodeURIComponent(keyword)]} />
+      <InfinityPreviewImage keywords={[decodedKeyword]} />
     </HydrateClient>
   );
 }
