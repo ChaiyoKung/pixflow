@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect } from "react";
-import { api } from "../../trpc/react";
+import { api } from "~/trpc/react";
 import Link from "next/link";
 import { ConditionPreviewImage } from "./condition-preview-image";
 import { Alert, Button, Center, SimpleGrid } from "@mantine/core";
