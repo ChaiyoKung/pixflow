@@ -1,41 +1,16 @@
-import { Center, Flex, Text } from "@mantine/core";
-import { api, HydrateClient } from "~/trpc/server";
-import { ConditionPreviewImage } from "./_components/condition-preview-image";
-import { parsePageQueryParam } from "~/utils/parse-page-query-param";
-import { Pagination, VerticalMasonry } from "~/components";
-import Link from "next/link";
+import { Flex } from "@mantine/core";
+import { HydrateClient } from "~/trpc/server";
+import { InfinityPreviewImage } from "./_components/infinity-preview-image";
+import { TotalImage } from "./_components/total-image";
 
-const initialPage = 1;
-const pageSize = 10;
-
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const queryParams = await searchParams;
-  const page = parsePageQueryParam(queryParams.page, initialPage);
-  const { images, totalPages, total } = await api.image.list({ page, pageSize });
-
+export default async function Home() {
   return (
     <HydrateClient>
       <Flex mb="xs" justify="end">
-        <Text size="lg" c="blue">
-          Total Images: {total}
-        </Text>
+        <TotalImage />
       </Flex>
 
-      <VerticalMasonry>
-        {images.map((image, index) => (
-          <Link key={image.id} href={`/image/${image.id}`}>
-            <ConditionPreviewImage data={image} isNew={index === 0 && page === 1} quality={10} mb="sm" />
-          </Link>
-        ))}
-      </VerticalMasonry>
-
-      <Center my="xl">
-        <Pagination total={totalPages} page={page} siblings={2} />
-      </Center>
+      <InfinityPreviewImage />
     </HydrateClient>
   );
 }

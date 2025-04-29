@@ -13,7 +13,7 @@ export function PreviewImage({ data, quality, ...props }: PreviewImageProps) {
   return (
     <AspectRatio
       {...props}
-      ratio={width / height}
+      ratio={1 / 1}
       pos="relative"
       bg="gray"
       style={{ borderRadius: "var(--mantine-radius-md)", ...props.style }}
