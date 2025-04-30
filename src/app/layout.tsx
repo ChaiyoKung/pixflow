@@ -6,6 +6,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { env } from "~/env";
 
 export const metadata: Metadata = {
   title: "PixFlow",
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript forceColorScheme="dark" />
+        <GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
       </head>
       <body>
         <MantineProvider forceColorScheme="dark">
