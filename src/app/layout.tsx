@@ -2,7 +2,6 @@ import "@mantine/core/styles.css";
 import { type Metadata } from "next";
 import { ColorSchemeScript, Container, mantineHtmlProps, MantineProvider, Stack } from "@mantine/core";
 import { TRPCReactProvider } from "~/trpc/react";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
@@ -51,7 +50,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </Stack>
           </TRPCReactProvider>
         </MantineProvider>
-        <Analytics />
         <SpeedInsights />
       </body>
     </html>
