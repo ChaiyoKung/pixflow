@@ -8,11 +8,9 @@ export default function Error() {
     <Stack align="center" justify="center" flex={1}>
       <Title order={1}>Something went wrong!</Title>
 
-      <Link href="/" passHref legacyBehavior>
-        <Button component="a" radius="md">
-          Back to home page
-        </Button>
-      </Link>
+      <Button component={Link} href="/" radius="md">
+        Back to home page
+      </Button>
     </Stack>
   );
 }

@@ -9,11 +9,9 @@ export default function NotFound() {
         <Title order={2}>Page not found</Title>
       </Stack>
 
-      <Link href="/" passHref legacyBehavior>
-        <Button component="a" radius="md">
-          Back to home page
-        </Button>
-      </Link>
+      <Button component={Link} href="/" radius="md">
+        Back to home page
+      </Button>
     </Stack>
   );
 }

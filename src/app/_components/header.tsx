@@ -12,11 +12,9 @@ export function Header() {
       top={0}
       styles={{ root: { backdropFilter: "blur(3rem)", zIndex: 9999, backgroundColor: "rgba(36, 36, 36, 0.75)" } }}
     >
-      <Link href="/" passHref legacyBehavior>
-        <UnstyledButton component="a">
-          <Title order={1}>PixFlow</Title>
-        </UnstyledButton>
-      </Link>
+      <UnstyledButton component={Link} href="/">
+        <Title order={1}>PixFlow</Title>
+      </UnstyledButton>
     </Flex>
   );
 }
