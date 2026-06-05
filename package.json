@@ -61,7 +61,7 @@
     "prettier": "^3.5.1",
     "prisma": "^5.14.0",
     "typescript": "^5.5.3",
-    "vitest": "^3.0.6"
+    "vitest": "^4.1.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
