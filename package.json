@@ -65,5 +65,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
+  },
+  "overrides": {
+    "form-data": "^4.0.6"
   }
 }
