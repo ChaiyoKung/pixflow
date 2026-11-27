@@ -67,6 +67,9 @@
     "initVersion": "7.38.1"
   },
   "overrides": {
-    "form-data": "^4.0.6"
+    "form-data": "^4.0.6",
+    "next": {
+      "postcss": "^8.5.34"
+    }
   }
 }
